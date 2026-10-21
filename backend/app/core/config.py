@@ -53,12 +53,17 @@ class Settings(BaseSettings):
     docker_host: str | None = None  # e.g. tcp://docker-socket-proxy:2375
     docker_enabled: bool = True
     docker_control_enabled: bool = False  # master switch for start/stop/restart
-    protected_containers: Annotated[list[str], NoDecode] = ["homelab-backend", "homelab-web"]
+    protected_containers: Annotated[list[str], NoDecode] = [
+        "homelab-backend",
+        "homelab-web",
+        "homelab-docker-proxy",
+    ]
     log_max_lines: int = Field(default=500, ge=10, le=5000)
     log_max_bytes: int = 256 * 1024
 
     # host monitoring
     host_proc_path: str | None = None  # e.g. /host/proc when the host /proc is mounted
+    host_sys_path: str | None = None  # e.g. /host/sys when the host /sys is mounted (read-only)
     root_path: str = "/"
     storage_allowed_roots: Annotated[list[str], NoDecode] = [
         "/",
@@ -78,6 +83,23 @@ class Settings(BaseSettings):
     # notifications (secrets: env only)
     telegram_bot_token: str | None = Field(default=None, repr=False)
     telegram_chat_id: str | None = None
+
+    @field_validator(
+        "secret_key",
+        "setup_token",
+        "public_url",
+        "docker_host",
+        "host_proc_path",
+        "host_sys_path",
+        "telegram_bot_token",
+        "telegram_chat_id",
+        "database_url",
+        mode="before",
+    )
+    @classmethod
+    def _empty_is_none(cls, v: object) -> object:
+        # docker-compose passes unset variables as empty strings
+        return None if isinstance(v, str) and not v.strip() else v
 
     _split = field_validator(
         "cors_origins",

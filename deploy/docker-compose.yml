@@ -1,0 +1,107 @@
+# HomeLab Command Centre
+#   cp ../.env.example .env && edit .env
+#   docker compose up -d --build
+#
+# Trust boundaries (see docs/SECURITY.md):
+#   * Only `web` publishes a port (bound to WEB_BIND, default 127.0.0.1).
+#   * The backend and the Docker socket proxy live on an internal network with no published ports.
+#   * Nothing here mounts docker.sock except the socket proxy, read-only, and that proxy only
+#     answers a short allow-list of container endpoints.
+name: homelab-command-centre
+
+services:
+  docker-socket-proxy:
+    image: tecnativa/docker-socket-proxy:0.3.0
+    container_name: homelab-docker-proxy
+    restart: unless-stopped
+    environment:
+      # Read-only container inspection/logs/stats:
+      CONTAINERS: "1"
+      # Everything else stays at the image default (denied): images, volumes, networks, exec,
+      # build, secrets, swarm, system, ...
+      # POST is required for any state change; ALLOW_* narrow it to these three verbs.
+      POST: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
+      ALLOW_START: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
+      ALLOW_STOP: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
+      ALLOW_RESTARTS: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [internal]
+    read_only: true
+    tmpfs: [/run]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+
+  backend:
+    build: ../backend
+    image: homelab-command-centre/backend:local
+    container_name: homelab-backend
+    restart: unless-stopped
+    depends_on: [docker-socket-proxy]
+    environment:
+      HOMELAB_DATA_DIR: /data
+      DOCKER_HOST: tcp://docker-socket-proxy:2375
+      HOMELAB_HOST_PROC_PATH: /host/proc
+      HOMELAB_HOST_SYS_PATH: /host/sys
+      HOMELAB_ROOT_PATH: ${HOMELAB_ROOT_PATH:-/data}
+      HOMELAB_DOCKER_CONTROL_ENABLED: ${HOMELAB_DOCKER_CONTROL_ENABLED:-false}
+      HOMELAB_PUBLIC_URL: ${HOMELAB_PUBLIC_URL:-}
+      HOMELAB_COOKIE_SECURE: ${HOMELAB_COOKIE_SECURE:-false}
+      HOMELAB_SECRET_KEY: ${HOMELAB_SECRET_KEY:-}
+      HOMELAB_SETUP_TOKEN: ${HOMELAB_SETUP_TOKEN:-}
+      HOMELAB_TELEGRAM_BOT_TOKEN: ${HOMELAB_TELEGRAM_BOT_TOKEN:-}
+      HOMELAB_TELEGRAM_CHAT_ID: ${HOMELAB_TELEGRAM_CHAT_ID:-}
+    volumes:
+      - homelab-data:/data   # SQLite DB + generated secret key (survives container recreation)
+      # Read-only host views used for metrics (no write access, no docker.sock):
+      - type: bind
+        source: /proc
+        target: /host/proc
+        read_only: true
+      - type: bind
+        source: /sys
+        target: /host/sys
+        read_only: true
+      # --- External disks to monitor: add one block per mount. Keep read_only and rslave so a
+      # disk that is re-mounted later becomes visible, and create_host_path:false so Compose
+      # refuses to start rather than silently creating an empty directory on the root disk.
+      # - type: bind
+      #   source: /mnt/media
+      #   target: /mnt/media
+      #   read_only: true
+      #   bind: { propagation: rslave, create_host_path: false }
+    networks: [internal]
+    read_only: true
+    tmpfs: [/tmp]
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  web:
+    build: ../web
+    image: homelab-command-centre/web:local
+    container_name: homelab-web
+    restart: unless-stopped
+    depends_on: [backend]
+    ports:
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8080}:8080"
+    networks: [internal]
+    read_only: true
+    tmpfs: [/tmp, /var/cache/nginx, /run]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options: { max-size: "5m", max-file: "3" }
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  homelab-data:

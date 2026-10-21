@@ -51,9 +51,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         monitor = None
         if settings.monitor_enabled:
             from app.monitoring.monitor import Monitor
+            from app.notifications.telegram import TelegramNotifier
+            from app.services.alert_engine import AlertEngine
 
             monitor = Monitor(ctx)
             ctx.monitor = monitor
+            telegram = TelegramNotifier(settings.telegram_bot_token, settings.telegram_chat_id)
+            ctx.extras["telegram"] = telegram
+            monitor.alert_engine = AlertEngine(ctx, monitor, [telegram])
             await monitor.start()
         log.info(
             "started version=%s db=%s", __version__, "sqlite" if settings.is_sqlite else "other"

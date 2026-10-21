@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app import __version__
 from app.api.deps import Principal, current_user, get_ctx, get_session
 from app.core.context import AppContext
+from app.schemas.common import Message
 from app.schemas.settings import AppSettingsPatch, SettingsResponse
 from app.services import settings_service
 from app.services.events import record_event
@@ -47,3 +48,33 @@ async def patch_settings(
     )
     ctx.runtime = new
     return _response(ctx)
+
+
+@router.post("/test-notification", response_model=Message)
+async def test_notification(
+    principal: Principal = Depends(current_user), ctx: AppContext = Depends(get_ctx)
+) -> Message:
+    """Send a test message through the configured notifier (never reveals credentials)."""
+    from app.core.errors import AppError
+    from app.notifications.base import Notification
+
+    notifier = ctx.extras.get("telegram")
+    if notifier is None or not notifier.configured():
+        raise AppError(
+            "Telegram is not configured on the server (set HOMELAB_TELEGRAM_BOT_TOKEN and "
+            "HOMELAB_TELEGRAM_CHAT_ID)",
+            status_code=400,
+            code="notifier_not_configured",
+        )
+    try:
+        await notifier.send(
+            Notification(
+                "test",
+                "info",
+                "Test notification",
+                f"Sent by {principal.name} from HomeLab Command Centre.",
+            )
+        )
+    except RuntimeError as exc:
+        raise AppError(f"Delivery failed: {exc}", status_code=502, code="delivery_failed") from exc
+    return Message(message="Test notification sent")

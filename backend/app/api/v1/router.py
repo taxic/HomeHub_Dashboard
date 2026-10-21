@@ -1,8 +1,29 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth, health, settings
+from app.api.v1 import (
+    alerts,
+    auth,
+    backups,
+    containers,
+    health,
+    metrics,
+    overview,
+    services,
+    settings,
+    storage,
+)
 
 api_router = APIRouter(prefix="/api/v1")
-api_router.include_router(health.router)
-api_router.include_router(auth.router)
-api_router.include_router(settings.router)
+for module in (
+    health,
+    auth,
+    overview,
+    metrics,
+    containers,
+    services,
+    storage,
+    alerts,
+    backups,
+    settings,
+):
+    api_router.include_router(module.router)

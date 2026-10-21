@@ -48,3 +48,34 @@ async def auth(client):
     )
     assert r.status_code == 200, r.text
     return {"Authorization": f"Bearer {r.json()['access_token']}"}
+
+
+@pytest.fixture
+def fake_docker():
+    from tests.fakes import FakeDocker, make_container
+
+    return FakeDocker(
+        [
+            make_container("plex"),
+            make_container("navidrome"),
+            make_container("pihole", health="healthy"),
+            make_container("homelab-backend"),
+            make_container("old-thing", state="exited"),
+        ]
+    )
+
+
+@pytest.fixture
+async def mon(app, fake_docker):
+    """A Monitor wired to fakes. Loops are not started; tests drive refresh methods directly."""
+    import httpx
+
+    from app.monitoring.healthcheck import HealthChecker
+    from app.monitoring.monitor import Monitor
+
+    state = {"handler": lambda request: httpx.Response(200)}
+    transport = httpx.MockTransport(lambda request: state["handler"](request))
+    m = Monitor(app.state.ctx, docker=fake_docker, checker=HealthChecker(transport=transport))
+    m.http_state = state  # tests replace m.http_state["handler"]
+    app.state.ctx.monitor = m
+    return m

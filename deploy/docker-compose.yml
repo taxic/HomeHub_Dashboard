@@ -11,7 +11,7 @@ name: homelab-command-centre
 
 services:
   docker-socket-proxy:
-    image: tecnativa/docker-socket-proxy:0.3.0
+    image: tecnativa/docker-socket-proxy:v0.4.2
     container_name: homelab-docker-proxy
     restart: unless-stopped
     environment:
@@ -19,8 +19,9 @@ services:
       CONTAINERS: "1"
       # Everything else stays at the image default (denied): images, volumes, networks, exec,
       # build, secrets, swarm, system, ...
-      # POST is required for any state change; ALLOW_* narrow it to these three verbs.
-      POST: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
+      # POST stays OFF (so container create/exec/etc. are impossible). The ALLOW_* switches are
+      # granular exceptions that open only these endpoints (note: upstream's ALLOW_RESTARTS also
+      # covers `kill`; this application never calls it).
       ALLOW_START: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
       ALLOW_STOP: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}
       ALLOW_RESTARTS: ${DOCKER_PROXY_ALLOW_ACTIONS:-0}

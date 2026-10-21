@@ -1,0 +1,33 @@
+# secrets / local config
+.env
+*.env.local
+*.pem
+*.key
+*.jks
+*.keystore
+keystore.properties
+local.properties
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+# data
+*.db
+*.sqlite3
+data/
+# node
+node_modules/
+web/dist/
+web/coverage/
+# android
+android/.gradle/
+android/build/
+android/app/build/
+.idea/
+*.apk
+*.aab
+# os
+.DS_Store

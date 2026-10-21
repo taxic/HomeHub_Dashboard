@@ -1,0 +1,42 @@
+[project]
+name = "homelab-command-centre-backend"
+version = "0.1.0"
+description = "HomeLab Command Centre backend API and monitoring service"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "uvicorn[standard]>=0.30,<1.0",
+  "pydantic>=2.8,<3",
+  "pydantic-settings>=2.4,<3",
+  "sqlalchemy[asyncio]>=2.0.30,<2.2",
+  "aiosqlite>=0.20,<1.0",
+  "alembic>=1.13,<2",
+  "psutil>=6.0,<8",
+  "docker>=7.1,<8",
+  "httpx>=0.27,<1.0",
+  "argon2-cffi>=23.1,<26",
+  "pyjwt>=2.9,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["migrations/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "ASYNC"]
+ignore = ["S101", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S105", "S106", "S104", "S108"]

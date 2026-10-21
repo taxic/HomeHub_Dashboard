@@ -1,0 +1,55 @@
+/* Design tokens shared (conceptually) with the Android theme - see docs/DESIGN.md */
+:root {
+  color-scheme: dark;
+  --bg: #0e1116;
+  --surface: #151a21;
+  --surface-2: #1b222b;
+  --border: #2a323d;
+  --text: #e8ebef;
+  --text-2: #aab2bd;
+  --text-3: #7f8996;
+  --accent: #5b9dff;
+  --accent-contrast: #0b1220;
+  --ok: #3fb97a;
+  --ok-bg: rgba(63, 185, 122, 0.14);
+  --warn: #e8a23a;
+  --warn-bg: rgba(232, 162, 58, 0.14);
+  --crit: #f06b6b;
+  --crit-bg: rgba(240, 107, 107, 0.14);
+  --unknown: #8b95a3;
+  --unknown-bg: rgba(139, 149, 163, 0.14);
+  --series-1: #3987e5; /* categorical slots 1-3 (validated palette) */
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --grid: #28303a;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-2: #f0f3f7;
+  --border: #d9dee6;
+  --text: #121820;
+  --text-2: #4a5563;
+  --text-3: #66717f;
+  --accent: #1f6fe0;
+  --accent-contrast: #ffffff;
+  --ok: #0f7a45;
+  --ok-bg: rgba(15, 122, 69, 0.1);
+  --warn: #8f5a00;
+  --warn-bg: rgba(143, 90, 0, 0.1);
+  --crit: #c22e2e;
+  --crit-bg: rgba(194, 46, 46, 0.1);
+  --unknown: #5c6672;
+  --unknown-bg: rgba(92, 102, 114, 0.1);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --grid: #e3e8ee;
+  --shadow: 0 1px 2px rgba(20, 30, 50, 0.08);
+}

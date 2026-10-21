@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "not_permitted",
+    "message": "This container is not permitted for remote control. Enable control on its service definition first.",
+    "request_id": "6ce5d0b8b8ed"
+  }
+}

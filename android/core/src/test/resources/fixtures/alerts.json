@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "key": "storage:1:mount",
+      "type": "mount_unavailable",
+      "severity": "critical",
+      "status": "open",
+      "title": "Storage 'Media HDD' is unavailable",
+      "message": "/mnt/media: Path does not exist. Nothing was modified.",
+      "subject": "volume:1",
+      "occurrences": 1,
+      "first_seen_at": "2026-10-21T18:24:44.159766Z",
+      "last_seen_at": "2026-10-21T18:24:44.159766Z",
+      "resolved_at": null,
+      "acknowledged_at": null,
+      "acknowledged_by": null
+    }
+  ],
+  "total": 1,
+  "limit": 50,
+  "offset": 0
+}

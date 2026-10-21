@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "blocked_url",
+    "message": "Target is not allowed: link-local address (includes cloud metadata endpoints)",
+    "details": [
+      {
+        "field": "url",
+        "message": "Target is not allowed: link-local address (includes cloud metadata endpoints)"
+      }
+    ],
+    "request_id": "4cf83f13b59e"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "706c6578706c6578706c6578706c6578706c6578706c6578706c6578706c6578",
+  "name": "plex",
+  "action": "restart",
+  "ok": true,
+  "state": "running",
+  "message": "Restart completed; container is now running"
+}

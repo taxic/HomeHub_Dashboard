@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "dashboard_refresh_seconds": 10,
+    "default_theme": "dark",
+    "host_sample_seconds": 10,
+    "docker_refresh_seconds": 15,
+    "metric_persist_seconds": 60,
+    "retention_raw_hours": 48,
+    "retention_rollup_days": 30,
+    "retention_events_days": 90,
+    "cpu_warn_percent": 85.0,
+    "cpu_crit_percent": 95.0,
+    "cpu_duration_minutes": 5,
+    "mem_warn_percent": 85.0,
+    "mem_crit_percent": 95.0,
+    "mem_duration_minutes": 5,
+    "storage_warn_percent": 85.0,
+    "storage_crit_percent": 95.0,
+    "alert_renotify_minutes": 240,
+    "service_failure_threshold": 2,
+    "telegram_enabled": false,
+    "notify_min_severity": "warning",
+    "notify_on_resolve": true
+  },
+  "telegram_configured": false,
+  "docker_control_enabled": true,
+  "version": "0.1.0",
+  "public_url": null
+}

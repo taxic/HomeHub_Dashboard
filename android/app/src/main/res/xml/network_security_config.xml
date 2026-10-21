@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The server is usually reached over Tailscale (WireGuard-encrypted) at a plain http://100.x.y.z:8080
+  address, which Android blocks by default. Cleartext must therefore be permitted globally because
+  Tailscale IPs cannot be enumerated here. The app itself warns on the connection screen whenever an
+  http:// address is not private/Tailscale, and recommends https (e.g. `tailscale serve`).
+  User-installed CAs are NOT trusted.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

@@ -1,0 +1,44 @@
+{
+  "range": "1h",
+  "start": "2026-10-21T17:24:44.250291Z",
+  "end": "2026-10-21T18:24:44.250291Z",
+  "bucket_seconds": 60,
+  "points": [
+    {
+      "ts": "2026-10-21T18:21:00Z",
+      "cpu_percent": 30.0,
+      "mem_percent": 40.0,
+      "swap_percent": null,
+      "load1": null,
+      "disk_root_percent": null,
+      "storage_max_percent": null,
+      "net_rx_bps": 3000.0,
+      "net_tx_bps": null,
+      "temp_c": null
+    },
+    {
+      "ts": "2026-10-21T18:22:00Z",
+      "cpu_percent": 20.0,
+      "mem_percent": 40.0,
+      "swap_percent": null,
+      "load1": null,
+      "disk_root_percent": null,
+      "storage_max_percent": null,
+      "net_rx_bps": 2000.0,
+      "net_tx_bps": null,
+      "temp_c": null
+    },
+    {
+      "ts": "2026-10-21T18:23:00Z",
+      "cpu_percent": 10.0,
+      "mem_percent": 40.0,
+      "swap_percent": null,
+      "load1": null,
+      "disk_root_percent": null,
+      "storage_max_percent": null,
+      "net_rx_bps": 1000.0,
+      "net_tx_bps": null,
+      "temp_c": null
+    }
+  ]
+}

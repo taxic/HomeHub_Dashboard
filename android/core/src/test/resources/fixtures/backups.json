@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Nightly",
+    "description": null,
+    "schedule_text": null,
+    "report_path": null,
+    "max_age_hours": 30,
+    "verification_max_age_days": 90,
+    "enabled": true,
+    "created_at": "2026-10-21T18:24:44.102853Z",
+    "last_attempt_at": "2026-10-21T18:24:44.111983Z",
+    "last_attempt_status": "success",
+    "last_success_at": "2026-10-21T18:24:44.111983Z",
+    "last_message": "ok",
+    "last_restore_test_at": null,
+    "last_restore_test_ok": null,
+    "last_restore_test_success_at": null,
+    "state": "reported_success",
+    "state_reason": "Success was reported by the backup script; no restore test recorded",
+    "age_hours": 0.0
+  }
+]

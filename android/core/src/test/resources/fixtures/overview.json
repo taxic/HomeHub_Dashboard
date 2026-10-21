@@ -1,0 +1,192 @@
+{
+  "status": "critical",
+  "status_reason": "1 critical alert(s) open",
+  "generated_at": "2026-10-21T18:24:44.179457Z",
+  "last_update": "2026-10-21T18:24:44.122038Z",
+  "stale": false,
+  "refresh_seconds": 10,
+  "host": {
+    "sampled_at": "2026-10-21T18:24:44.122038Z",
+    "cpu_percent": 33.3,
+    "cpu_count": 4,
+    "load_avg": [
+      0.4,
+      0.65,
+      0.57
+    ],
+    "memory": {
+      "total_bytes": 16874930176,
+      "used_bytes": 732860416,
+      "available_bytes": 16142069760,
+      "percent": 4.3
+    },
+    "swap": null,
+    "uptime_seconds": 2742.1213278770447,
+    "temperature_c": null,
+    "temperatures": [],
+    "network": {
+      "rx_bps": 0.0,
+      "tx_bps": 0.0,
+      "rx_total_bytes": 280296591,
+      "tx_total_bytes": 20789229,
+      "interfaces": [
+        "eth0",
+        "ifb0",
+        "ifb1"
+      ]
+    },
+    "disk_io": {
+      "read_bps": 0.0,
+      "write_bps": 0.0
+    }
+  },
+  "root_volume": {
+    "id": null,
+    "name": "Root filesystem",
+    "path": "/",
+    "kind": "root",
+    "required": true,
+    "state": "ok",
+    "message": null,
+    "total_bytes": 270553174016,
+    "used_bytes": 10807111680,
+    "free_bytes": 30720126976,
+    "percent": 26.0,
+    "checked_at": "2026-10-21T18:24:44.122316Z"
+  },
+  "volumes": [
+    {
+      "id": 1,
+      "name": "Media HDD",
+      "path": "/mnt/media",
+      "kind": "external",
+      "required": true,
+      "state": "missing",
+      "message": "Path does not exist",
+      "total_bytes": null,
+      "used_bytes": null,
+      "free_bytes": null,
+      "percent": null,
+      "checked_at": "2026-10-21T18:24:44.133998Z"
+    }
+  ],
+  "containers": {
+    "available": true,
+    "running": 2,
+    "stopped": 1,
+    "unhealthy": 0,
+    "total": 3,
+    "error": null
+  },
+  "services": {
+    "healthy": 2,
+    "unhealthy": 0,
+    "unknown": 0,
+    "degraded": 0,
+    "disabled": 0,
+    "total": 2
+  },
+  "backups": {
+    "total": 1,
+    "ok": 1,
+    "problem": 0
+  },
+  "alerts": {
+    "open": 1,
+    "critical": 1,
+    "warning": 0,
+    "unacknowledged": 1
+  },
+  "recent_alerts": [
+    {
+      "id": 1,
+      "key": "storage:1:mount",
+      "type": "mount_unavailable",
+      "severity": "critical",
+      "status": "open",
+      "title": "Storage 'Media HDD' is unavailable",
+      "message": "/mnt/media: Path does not exist. Nothing was modified.",
+      "subject": "volume:1",
+      "occurrences": 1,
+      "first_seen_at": "2026-10-21T18:24:44.159766Z",
+      "last_seen_at": "2026-10-21T18:24:44.159766Z",
+      "resolved_at": null,
+      "acknowledged_at": null,
+      "acknowledged_by": null
+    }
+  ],
+  "recent_events": [
+    {
+      "id": 8,
+      "ts": "2026-10-21T18:24:44.168746Z",
+      "type": "alert.opened",
+      "severity": "critical",
+      "message": "Storage 'Media HDD' is unavailable: /mnt/media: Path does not exist. Nothing was modified.",
+      "actor": null,
+      "subject": "alert:1"
+    },
+    {
+      "id": 7,
+      "ts": "2026-10-21T18:24:44.112768Z",
+      "type": "backup.backup_success",
+      "severity": "info",
+      "message": "Backup 'Nightly': backup success - ok",
+      "actor": "admin",
+      "subject": "backup:1"
+    },
+    {
+      "id": 6,
+      "ts": "2026-10-21T18:24:44.104751Z",
+      "type": "backup.job_created",
+      "severity": "info",
+      "message": "Backup job 'Nightly' created",
+      "actor": "admin",
+      "subject": "backup:1"
+    },
+    {
+      "id": 5,
+      "ts": "2026-10-21T18:24:44.076016Z",
+      "type": "storage.volume_created",
+      "severity": "info",
+      "message": "Monitored volume 'Media HDD' added",
+      "actor": "admin",
+      "subject": "volume:1"
+    },
+    {
+      "id": 4,
+      "ts": "2026-10-21T18:24:44.059438Z",
+      "type": "service.created",
+      "severity": "info",
+      "message": "Service 'Pi-hole' created",
+      "actor": "admin",
+      "subject": "service:2"
+    },
+    {
+      "id": 3,
+      "ts": "2026-10-21T18:24:44.050098Z",
+      "type": "service.created",
+      "severity": "info",
+      "message": "Service 'Plex' created",
+      "actor": "admin",
+      "subject": "service:1"
+    },
+    {
+      "id": 2,
+      "ts": "2026-10-21T18:24:44.002223Z",
+      "type": "auth.login",
+      "severity": "info",
+      "message": "'admin' signed in (mobile)",
+      "actor": "admin",
+      "subject": null
+    },
+    {
+      "id": 1,
+      "ts": "2026-10-21T18:24:43.923499Z",
+      "type": "auth.setup",
+      "severity": "info",
+      "message": "Administrator 'admin' created",
+      "actor": "admin",
+      "subject": null
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "id": 8,
+      "ts": "2026-10-21T18:24:44.168746Z",
+      "type": "alert.opened",
+      "severity": "critical",
+      "message": "Storage 'Media HDD' is unavailable: /mnt/media: Path does not exist. Nothing was modified.",
+      "actor": null,
+      "subject": "alert:1"
+    },
+    {
+      "id": 7,
+      "ts": "2026-10-21T18:24:44.112768Z",
+      "type": "backup.backup_success",
+      "severity": "info",
+      "message": "Backup 'Nightly': backup success - ok",
+      "actor": "admin",
+      "subject": "backup:1"
+    },
+    {
+      "id": 6,
+      "ts": "2026-10-21T18:24:44.104751Z",
+      "type": "backup.job_created",
+      "severity": "info",
+      "message": "Backup job 'Nightly' created",
+      "actor": "admin",
+      "subject": "backup:1"
+    },
+    {
+      "id": 5,
+      "ts": "2026-10-21T18:24:44.076016Z",
+      "type": "storage.volume_created",
+      "severity": "info",
+      "message": "Monitored volume 'Media HDD' added",
+      "actor": "admin",
+      "subject": "volume:1"
+    },
+    {
+      "id": 4,
+      "ts": "2026-10-21T18:24:44.059438Z",
+      "type": "service.created",
+      "severity": "info",
+      "message": "Service 'Pi-hole' created",
+      "actor": "admin",
+      "subject": "service:2"
+    },
+    {
+      "id": 3,
+      "ts": "2026-10-21T18:24:44.050098Z",
+      "type": "service.created",
+      "severity": "info",
+      "message": "Service 'Plex' created",
+      "actor": "admin",
+      "subject": "service:1"
+    },
+    {
+      "id": 2,
+      "ts": "2026-10-21T18:24:44.002223Z",
+      "type": "auth.login",
+      "severity": "info",
+      "message": "'admin' signed in (mobile)",
+      "actor": "admin",
+      "subject": null
+    },
+    {
+      "id": 1,
+      "ts": "2026-10-21T18:24:43.923499Z",
+      "type": "auth.setup",
+      "severity": "info",
+      "message": "Administrator 'admin' created",
+      "actor": "admin",
+      "subject": null
+    }
+  ],
+  "total": 8,
+  "limit": 50,
+  "offset": 0
+}

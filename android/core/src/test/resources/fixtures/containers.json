@@ -1,0 +1,75 @@
+{
+  "docker_available": true,
+  "docker_error": null,
+  "refreshed_at": "2026-10-21T18:24:44.135271Z",
+  "containers": [
+    {
+      "id": "6f6c646f6c646f6c646f6c646f6c646f6c646f6c646f6c64aaaaaaaaaaaaaaaa",
+      "short_id": "6f6c646f6c64",
+      "name": "old",
+      "image": "old:latest",
+      "state": "exited",
+      "status_text": "exited",
+      "health": "none",
+      "created_at": "2025-01-01T00:00:00Z",
+      "started_at": null,
+      "restart_count": 0,
+      "stats": null,
+      "service_id": null,
+      "service_name": null,
+      "can_control": false,
+      "allowed_actions": [],
+      "protected": false
+    },
+    {
+      "id": "7069686f6c657069686f6c657069686f6c657069686f6c657069686f6c657069",
+      "short_id": "7069686f6c65",
+      "name": "pihole",
+      "image": "pihole:latest",
+      "state": "running",
+      "status_text": "running",
+      "health": "healthy",
+      "created_at": "2025-01-01T00:00:00Z",
+      "started_at": "2025-01-02T00:00:00Z",
+      "restart_count": 0,
+      "stats": {
+        "cpu_percent": 20.0,
+        "memory_bytes": 200,
+        "memory_limit_bytes": 1000,
+        "memory_percent": 20.0
+      },
+      "service_id": 2,
+      "service_name": "Pi-hole",
+      "can_control": false,
+      "allowed_actions": [],
+      "protected": false
+    },
+    {
+      "id": "706c6578706c6578706c6578706c6578706c6578706c6578706c6578706c6578",
+      "short_id": "706c6578706c",
+      "name": "plex",
+      "image": "plex:latest",
+      "state": "running",
+      "status_text": "running",
+      "health": "none",
+      "created_at": "2025-01-01T00:00:00Z",
+      "started_at": "2025-01-02T00:00:00Z",
+      "restart_count": 0,
+      "stats": {
+        "cpu_percent": 20.0,
+        "memory_bytes": 200,
+        "memory_limit_bytes": 1000,
+        "memory_percent": 20.0
+      },
+      "service_id": 1,
+      "service_name": "Plex",
+      "can_control": true,
+      "allowed_actions": [
+        "restart",
+        "start",
+        "stop"
+      ],
+      "protected": false
+    }
+  ]
+}

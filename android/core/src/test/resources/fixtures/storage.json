@@ -1,0 +1,37 @@
+{
+  "root": {
+    "id": null,
+    "name": "Root filesystem",
+    "path": "/",
+    "kind": "root",
+    "required": true,
+    "state": "ok",
+    "message": null,
+    "total_bytes": 270553174016,
+    "used_bytes": 10807111680,
+    "free_bytes": 30720126976,
+    "percent": 26.0,
+    "checked_at": "2026-10-21T18:24:44.122316Z"
+  },
+  "volumes": [
+    {
+      "id": 1,
+      "name": "Media HDD",
+      "path": "/mnt/media",
+      "kind": "external",
+      "required": true,
+      "state": "missing",
+      "message": "Path does not exist",
+      "total_bytes": null,
+      "used_bytes": null,
+      "free_bytes": null,
+      "percent": null,
+      "checked_at": "2026-10-21T18:24:44.133998Z"
+    }
+  ],
+  "disk_io": {
+    "read_bps": 0.0,
+    "write_bps": 0.0
+  },
+  "sampled_at": "2026-10-21T18:24:44.122038Z"
+}

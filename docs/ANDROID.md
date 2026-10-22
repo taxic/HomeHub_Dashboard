@@ -20,8 +20,8 @@ included automatically only when `ANDROID_HOME`/`local.properties` is present).
 
 ## Connecting over Tailscale
 1. Install Tailscale on the phone and join the same tailnet as the server.
-2. In the app's first screen enter the server address: `http://100.x.y.z:8080` (from
-   `tailscale ip -4`) or `http://<hostname>.<tailnet>.ts.net:8080`, or the `https://…ts.net/` address if
+2. In the app's first screen enter the server address: `http://100.x.y.z:8741` (from
+   `tailscale ip -4`) or `http://<hostname>.<tailnet>.ts.net:8741`, or the `https://…ts.net/` address if
    you use `tailscale serve`. **Never `localhost`** — on the phone that is the phone.
 3. The app checks `/api/v1/health` before saving, then shows setup (first run) or sign-in.
 4. Notifications: Settings → "Notify me of critical alerts" (Android 13+ asks for permission). This is a

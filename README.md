@@ -37,7 +37,7 @@ Please read [docs/SECURITY.md](docs/SECURITY.md) (limitations included) before e
 cd deploy
 cp ../.env.example .env        # edit: WEB_BIND, secrets; see comments inside
 docker compose up -d --build
-# open http://<WEB_BIND>:8080 → "Create the administrator" (first run only)
+# open http://<WEB_BIND>:8741 → "Create the administrator" (first run only)
 ```
 
 Full steps (Tailscale access, monitoring external disks, enabling container control, upgrades,

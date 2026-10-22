@@ -34,7 +34,7 @@ fun ConnectScreen(vm: AuthViewModel, initial: String = "") {
     val warning by vm.urlWarning.collectAsState()
     FormColumn("Connect to your server", "Enter the address of your HomeLab backend, for example your server's Tailscale name or IP. \"localhost\" on a phone is the phone itself.") {
         OutlinedTextField(
-            url, { url = it; vm.clearError() }, label = { Text("Server address") }, placeholder = { Text("http://100.101.102.103:8080") },
+            url, { url = it; vm.clearError() }, label = { Text("Server address") }, placeholder = { Text("http://100.101.102.103:8741") },
             singleLine = true, isError = error != null, modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
         )

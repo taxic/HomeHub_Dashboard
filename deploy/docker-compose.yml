@@ -39,6 +39,8 @@ services:
     container_name: homelab-backend
     restart: unless-stopped
     depends_on: [docker-socket-proxy]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # lets health checks reach ports published by other containers
     environment:
       HOMELAB_DATA_DIR: /data
       DOCKER_HOST: tcp://docker-socket-proxy:2375
@@ -89,7 +91,7 @@ services:
     restart: unless-stopped
     depends_on: [backend]
     ports:
-      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8080}:8080"
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8741}:8080"
     networks: [internal]
     read_only: true
     tmpfs: [/tmp, /var/cache/nginx, /run]

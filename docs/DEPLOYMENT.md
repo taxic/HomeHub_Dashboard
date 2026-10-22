@@ -74,12 +74,37 @@ container path that lives on the root filesystem.
   then opt in per service ("Allow start/stop/restart", choose verbs). The backend's own containers are
   always protected. Every action is audited (Alerts & events → Events).
 
+### Suggested service definitions for the current server
+Host port used by this app: **8741** (8080 is qBittorrent's). Health checks run from inside the backend
+container, so reach other containers' published ports via `host.docker.internal` (resolves to the Docker
+host; allowed by the SSRF policy because it is a private address). Container name must match exactly.
+
+| Service | Health-check URL | Container | Notes |
+|---|---|---|---|
+| Plex | `http://host.docker.internal:32400/identity` | `plex` | host-networked; `/identity` needs no token |
+| Navidrome | `http://host.docker.internal:4533/ping` | `navidrome` | |
+| Radarr | `http://host.docker.internal:7878/ping` | `radarr` | |
+| Sonarr | `http://host.docker.internal:8989/ping` | `sonarr` | |
+| Lidarr | `http://host.docker.internal:8686/ping` | `lidarr` | |
+| Prowlarr | `http://host.docker.internal:9696/ping` | `prowlarr` | |
+| FlareSolverr | `http://host.docker.internal:8191/` | `flaresolverr` | |
+| qBittorrent | `http://host.docker.internal:8080/` | `qbittorrent` | accept `200-403` if login redirect/forbidden |
+| Pi-hole | `http://host.docker.internal:80/admin/` | `pihole` | accept `200-399`; leave control **off** (it is your DNS) |
+| Minecraft | *(no URL)* | `minecraft` | TCP only, so container health only |
+
+The `/ping` paths are the apps' standard unauthenticated endpoints; verify each with `curl` first. Keep
+`allow_control` **off** for Pi-hole (DNS for the whole network) and Minecraft (players connected).
+
+Port map check against your listing: 53, 80, 4533, 6881, 7878, 8080, 8191, 8686, 8989, 9696, 25565 and
+Plex's host ports are in use; this stack publishes only 8741 and nothing else (the socket proxy and
+backend publish no ports; no `network_mode: host`).
+
 ## 6. Remote access with Tailscale
 * Set `WEB_BIND` to the server's Tailscale IP (`tailscale ip -4`) so the UI is not exposed on the LAN.
-* From a phone/laptop on the tailnet use `http://<tailscale-ip>:8080` or MagicDNS
-  `http://<hostname>.<tailnet>.ts.net:8080`.
+* From a phone/laptop on the tailnet use `http://<tailscale-ip>:8741` or MagicDNS
+  `http://<hostname>.<tailnet>.ts.net:8741`.
 * Better: terminate HTTPS with Tailscale and set `HOMELAB_COOKIE_SECURE=true`:
-  `sudo tailscale serve --bg --https=443 http://127.0.0.1:8080` (keep `WEB_BIND=127.0.0.1`), then use
+  `sudo tailscale serve --bg --https=443 http://127.0.0.1:8741` (keep `WEB_BIND=127.0.0.1`), then use
   `https://<hostname>.<tailnet>.ts.net/`. (Check `tailscale serve --help` for your Tailscale version's syntax.)
 * Tailscale authenticates devices, **not** the app: the login is still required.
 * Set `HOMELAB_PUBLIC_URL` to the address clients should use (informational, shown in Settings).
@@ -129,7 +154,7 @@ proof of restorability), *Restore verified* (only after you report a `restore_te
 ## 9. Troubleshooting
 | Symptom | Check |
 |---|---|
-| UI says "Backend unreachable" | `docker compose ps`; `curl localhost:8080/api/v1/health`; Tailscale connected? |
+| UI says "Backend unreachable" | `docker compose ps`; `curl localhost:8741/api/v1/health`; Tailscale connected? |
 | "Docker is unavailable" | proxy running? `docker compose logs docker-socket-proxy`; backend env `DOCKER_HOST` |
 | Network throughput "unavailable" | `/sys` mount present and `HOMELAB_HOST_SYS_PATH=/host/sys`? (see backend log warning) |
 | Temperature "unavailable" | Normal on some hardware; needs `coretemp`/`k10temp` hwmon visible (`sensors`) |
